@@ -115,44 +115,94 @@ const days = ref([
 </script>
 
 <template>
-  <div
-    class="weather"
-    v-for="departure in departures"
-    :key="departure.id">
-    <p>
-      {{ departure.name }}
-    </p>
-    <div class="departure">
-      <div class="temperature">
-        40°<br>
-        30°<br>
-        20°<br>
-        10°<br>
-        0°
-      </div>
-      <div
-        v-for="day in days"
-        :key="day.id"
-        class="day">
-        <Day
-          :start="departure.start"
-          :day="day" />
-      </div>
-      <div class="rain">
-        8 l/m²<br>
-        6 l/m²<br>
-        4 l/m²<br>
-        2 l/m²<br>
-        0 l/m²
+  <div class="weather">
+    <div
+      v-for="departure in departures"
+      :key="departure.id">
+      <p>
+        <b>{{ departure.name }}</b>
+      </p>
+      <div class="departure">
+        <div class="temperature">
+          40°<br>
+          30°<br>
+          20°<br>
+          10°<br>
+          0°
+        </div>
+        <div
+          v-for="day in days"
+          :key="day.id"
+          class="day">
+          <Day
+            :start="departure.start"
+            :day="day" />
+        </div>
+        <div class="rain">
+          8 l/m²<br>
+          6 l/m²<br>
+          4 l/m²<br>
+          2 l/m²<br>
+          0 l/m²
+        </div>
       </div>
     </div>
-
+  </div>
+  <div class="hours">
+    <div>
+      <div>08:00</div>
+      <div>10:00</div>
+      <div>12:00</div>
+      <div>14:00</div>
+      <div>16:00</div>
+      <div>18:00</div>
+    </div>
+    <div>
+      <div>08:00</div>
+      <div>10:00</div>
+      <div>12:00</div>
+      <div>14:00</div>
+      <div>16:00</div>
+      <div>18:00</div>
+    </div>
+    <div>
+      <div>08:00</div>
+      <div>10:00</div>
+      <div>12:00</div>
+      <div>14:00</div>
+      <div>16:00</div>
+      <div>18:00</div>
+    </div>
+    <div>
+      <div>08:00</div>
+      <div>10:00</div>
+      <div>12:00</div>
+      <div>14:00</div>
+      <div>16:00</div>
+      <div>18:00</div>
+    </div>
+    <div>
+      <div>08:00</div>
+      <div>10:00</div>
+      <div>12:00</div>
+      <div>14:00</div>
+      <div>16:00</div>
+      <div>18:00</div>
+    </div>
+    <div>
+      <div>08:00</div>
+      <div>10:00</div>
+      <div>12:00</div>
+      <div>14:00</div>
+      <div>16:00</div>
+      <div>18:00</div>
+    </div>
   </div>
 </template>
 
 <style lang="scss">
 .weather {
-  padding: 1rem;
+  padding: 1rem 1rem .25rem 1rem;
   > p {
     padding-bottom: .25rem;
   }
@@ -163,10 +213,7 @@ const days = ref([
 .departure {
   display: flex;
   flex-direction: row;
-  > div {
-    display: flex;
-    justify-content: space-between;
-  }
+  margin-bottom: .5rem;
 }
 .day {
   padding-top: 10px;
@@ -181,5 +228,17 @@ const days = ref([
   padding-top: 0px;
   padding-left: 8px;
   line-height: 20px;
+}
+.hours {
+  padding: 0.5rem 0 0 44px;
+  display: flex;
+  > div {
+    padding: 0 9px 0 0;
+    display: flex;
+    > div {
+      width: 40px;
+      height: 16px;
+    }
+  }
 }
 </style>
