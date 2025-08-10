@@ -1,0 +1,16 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+html {
+    font-size: 100%;
+    line-height: 100%;
+}
+body {
+    font-size: .75rem;
+    line-height: 1rem;
+}
+html, button, input, select {
+    font-family: Tahoma, sans-serif;
+}
