@@ -88,7 +88,7 @@ onMounted(async () => {
 
   </div>
 
-  <!-- Precipitation Probability -->
+  <!-- Probability -->
 
   <div class="probability">
     <div>{{ probability[0] }}%</div>
