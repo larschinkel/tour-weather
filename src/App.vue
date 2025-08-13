@@ -4,43 +4,38 @@ import Day from './components/Day.vue'
 const departures = ref([
   {
     id: 1,
-    name: 'Abreise Dienstag, 12.08.2025',
-    start: '2025-08-12'
-  },
-  {
-    id: 2,
-    name: 'Abreise Mittwoch, 13.08.2025',
-    start: '2025-08-13'
-  },
-  {
-    id: 3,
-    name: 'Abreise Donnerstag, 14.08.2025',
-    start: '2025-08-14'
-  },
-  {
-    id: 4,
-    name: 'Abreise Freitag, 15.08.2025',
-    start: '2025-08-15'
-  },
-  {
-    id: 3,
-    name: 'Abreise Samstag, 16.08.2025',
-    start: '2025-08-16'
-  },
-  {
-    id: 4,
     name: 'Abreise Sonntag, 17.08.2025',
     start: '2025-08-17'
   },
   {
-    id: 3,
+    id: 2,
     name: 'Abreise Montag, 18.08.2025',
     start: '2025-08-18'
   },
   {
-    id: 4,
+    id: 3,
     name: 'Abreise Dienstag, 19.08.2025',
     start: '2025-08-19'
+  },
+  {
+    id: 4,
+    name: 'Abreise Mittwoch, 20.08.2025',
+    start: '2025-08-20'
+  },
+  {
+    id: 5,
+    name: 'Abreise Donnerstag, 21.08.2025',
+    start: '2025-08-21'
+  },
+  {
+    id: 6,
+    name: 'Abreise Freitag, 22.08.2025',
+    start: '2025-08-22'
+  },
+  {
+    id: 7,
+    name: 'Abreise Samstag, 23.08.2025',
+    start: '2025-08-23'
   },
 ]);
 
