@@ -2,43 +2,14 @@
 import { ref } from 'vue'
 import Day from './components/Day.vue'
 const departures = ref([
-  {
-    id: 1,
-    name: 'Abreise Sonntag, 17.08.2025',
-    start: '2025-08-17'
-  },
-  {
-    id: 2,
-    name: 'Abreise Montag, 18.08.2025',
-    start: '2025-08-18'
-  },
-  {
-    id: 3,
-    name: 'Abreise Dienstag, 19.08.2025',
-    start: '2025-08-19'
-  },
-  {
-    id: 4,
-    name: 'Abreise Mittwoch, 20.08.2025',
-    start: '2025-08-20'
-  },
-  {
-    id: 5,
-    name: 'Abreise Donnerstag, 21.08.2025',
-    start: '2025-08-21'
-  },
-  {
-    id: 6,
-    name: 'Abreise Freitag, 22.08.2025',
-    start: '2025-08-22'
-  },
-  {
-    id: 7,
-    name: 'Abreise Samstag, 23.08.2025',
-    start: '2025-08-23'
-  },
+  '2025-08-18',
+  '2025-08-19',
+  '2025-08-20',
+  '2025-08-21',
+  '2025-08-22',
+  '2025-08-23',
+  '2025-08-24'
 ]);
-
 const days = ref([
   {
     id: 1,
@@ -107,15 +78,23 @@ const days = ref([
     ],
   }
 ]);
+const getDate = (departure) => {
+  return new Date(Date.parse(departure)).toLocaleString('de-DE', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: '2-digit'
+  });
+}
 </script>
 
 <template>
   <div class="weather">
     <div
       v-for="departure in departures"
-      :key="departure.id">
+      :key="departure">
       <p>
-        <b>{{ departure.name }}</b>
+        <b>Abreise {{ getDate(departure) }}</b>
       </p>
       <div class="departure">
         <div class="temperature">
@@ -130,7 +109,7 @@ const days = ref([
           :key="day.id"
           class="day">
           <Day
-            :start="departure.start"
+            :start="departure"
             :day="day" />
         </div>
         <div class="rain">
