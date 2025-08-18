@@ -2,8 +2,8 @@
 import { ref, onMounted  } from 'vue'
 import axios from 'axios'
 const props = defineProps(['start', 'day'])
-const latitudes = props.day.waypoints.map(wp => wp.latitude)
-const longitudes = props.day.waypoints.map(wp => wp.longitude)
+const latitudes = props.day.map(wp => wp.latitude)
+const longitudes = props.day.map(wp => wp.longitude)
 const weather = ref([])
 const hours = ([8, 10, 12, 14, 16, 18])
 const precibitation = ref([0, 0, 0, 0, 0, 0])
@@ -18,6 +18,14 @@ const color = (code) => {
   if ([95].includes(code)) color = '#ff9191'
   if ([96,99].includes(code)) color = '#ff4a4a'
   return color
+}
+const getDate = (departure) => {
+  return new Date(Date.parse(departure)).toLocaleString('de-DE', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: '2-digit'
+  });
 }
 onMounted(async () => {
   const response = await axios.get('https://api.open-meteo.com/v1/forecast?', {
@@ -40,6 +48,13 @@ onMounted(async () => {
 </script>
 
 <template>
+
+  <!-- Probability -->
+
+  <div class="days">
+    <div>{{ getDate(start) }}</div>
+  </div>
+
   <div class="diagram">
     <svg height="81" width="241" v-if="Object.keys(weather).length > 0">
 
@@ -100,6 +115,14 @@ onMounted(async () => {
 </template>
 
 <style lang="css">
+.days {
+  padding: 0 0 .25rem 0;
+  display: flex;
+  > div {
+    min-width: 40px;
+    height: 16px;
+  }
+}
 .diagram {
   padding: 0;
 }
