@@ -4,7 +4,6 @@ import axios from 'axios'
 const props = defineProps(['start', 'day'])
 const latitudes = props.day.waypoints.map(wp => wp.latitude)
 const longitudes = props.day.waypoints.map(wp => wp.longitude)
-const elevations = props.day.waypoints.map(wp => wp.elevation)
 const weather = ref([])
 const hours = ([8, 10, 12, 14, 16, 18])
 const precibitation = ref([0, 0, 0, 0, 0, 0])
@@ -25,7 +24,6 @@ onMounted(async () => {
     params: {
       latitude: latitudes.join(','),
       longitude: longitudes.join(','),
-      elevation: elevations.join(','),
       hourly: 'temperature_2m,precipitation,precipitation_probability,weather_code',
       timezone: 'Europe/Berlin',
       start_date: props.start,
