@@ -6,17 +6,18 @@ const latitudes = props.day.map(wp => wp.latitude)
 const longitudes = props.day.map(wp => wp.longitude)
 const weather = ref([])
 const hours = ([8, 10, 12, 14, 16, 18])
-const precibitation = ref([0, 0, 0, 0, 0, 0])
-const probability = ref([0, 0, 0, 0, 0, 0])
+const rain = ref([0, 0, 0, 0, 0, 0])
+// const probability = ref([0, 0, 0, 0, 0, 0])
 const points = ref([[20, 80], [60, 80], [100, 80], [140, 80], [180, 80], [220, 80]])
 const color = (code) => {
   let color = '#ffffff'
-  if ([0,1,2].includes(code)) color = '#d7e2ff'
-  if ([3,45,48,51,56,61,80].includes(code)) color = '#e4e4e4'
-  if ([53,57,63,66,71,73,81,85].includes(code)) color = '#c4c4c4'
-  if ([55,65,67,75,77,86].includes(code)) color = '#a4a4a4'
-  if ([95].includes(code)) color = '#ff9191'
-  if ([96,99].includes(code)) color = '#ff4a4a'
+  if ([0,1].includes(code)) color = '#63A8FF'
+  if ([2,3].includes(code)) color = '#ADD0FC'
+  if ([45,48,51,56,61,80].includes(code)) color = '#D9E8FA'
+  if ([53,57,63,66,71,73,81,85].includes(code)) color = '#E4E4E4'
+  if ([55,65,67,75,77,86].includes(code)) color = '#C4C4C4'
+  if ([95].includes(code)) color = '#DCAFAF'
+  if ([96,99].includes(code)) color = '#DA6F6F'
   return color
 }
 const getDate = (departure) => {
@@ -27,12 +28,21 @@ const getDate = (departure) => {
     day: '2-digit'
   });
 }
+const getCoordinates = (coordinates) => {
+  return coordinates.map(coordinate => ddtDms(coordinate))
+}
+const ddtDms = (coordinate) => {
+  const deg = coordinate | 0
+  const frac = Math.abs(coordinate - deg)
+  const min = Math.round(frac * 60) | 0
+  return parseFloat(deg + '.' + min)
+}
 onMounted(async () => {
   const response = await axios.get('https://api.open-meteo.com/v1/forecast?', {
     params: {
-      latitude: latitudes.join(','),
-      longitude: longitudes.join(','),
-      hourly: 'temperature_2m,precipitation,precipitation_probability,weather_code',
+      latitude: getCoordinates(latitudes).join(','),
+      longitude: getCoordinates(longitudes).join(','),
+      hourly: 'temperature_2m,rain,precipitation,precipitation_probability,weather_code',
       timezone: 'Europe/Berlin',
       start_date: props.start,
       end_date: props.start
@@ -40,8 +50,8 @@ onMounted(async () => {
   })
   weather.value = response.data
   for (let i in weather.value) {
-    precibitation.value[i] = weather.value[i]['hourly']['precipitation'][hours[i]] ? (weather.value[i]['hourly']['precipitation'][hours[i]] * 10) : 0
-    probability.value[i] = weather.value[i]['hourly']['precipitation_probability'][hours[i]] ? weather.value[i]['hourly']['precipitation_probability'][hours[i]] : 0
+    rain.value[i] = weather.value[i]['hourly']['rain'][hours[i]] ? (weather.value[i]['hourly']['rain'][hours[i]] * 10) : 0
+    // probability.value[i] = weather.value[i]['hourly']['precipitation_probability'][hours[i]] ? weather.value[i]['hourly']['precipitation_probability'][hours[i]] : 0
     points.value[i][1] = 80 - (weather.value[i]['hourly']['temperature_2m'][hours[i]] * 2)
   }
 })
@@ -49,7 +59,7 @@ onMounted(async () => {
 
 <template>
 
-  <!-- Probability -->
+  <!-- Date -->
 
   <div class="days">
     <div>{{ getDate(start) }}</div>
@@ -67,14 +77,14 @@ onMounted(async () => {
       <rect width="39" height="79" x="161" y="0" :fill="color(weather[4]['hourly']['weather_code'][hours[4]])"></rect>
       <rect width="39" height="79" x="201" y="0" :fill="color(weather[5]['hourly']['weather_code'][hours[5]])"></rect>
 
-      <!-- Precibitation -->
+      <!-- Rain -->
 
-      <rect transform="rotate(-90, 1, 79)" :width="precibitation[0]" height="39" x="1" y="79" fill="#88b4ff"></rect>
-      <rect transform="rotate(-90, 41, 79)" :width="precibitation[1]" height="39" x="41" y="79" fill="#88b4ff"></rect>
-      <rect transform="rotate(-90, 81, 79)" :width="precibitation[2]" height="39" x="81" y="79" fill="#88b4ff"></rect>
-      <rect transform="rotate(-90, 121, 79)" :width="precibitation[3]" height="39" x="121" y="79" fill="#88b4ff"></rect>
-      <rect transform="rotate(-90, 161, 79)" :width="precibitation[4]" height="39" x="161" y="79" fill="#88b4ff"></rect>
-      <rect transform="rotate(-90, 201, 79)" :width="precibitation[5]" height="39" x="201" y="79" fill="#88b4ff"></rect>
+      <rect transform="rotate(-90, 1, 79)" :width="rain[0]" height="39" x="1" y="79" fill="#147CFF"></rect>
+      <rect transform="rotate(-90, 41, 79)" :width="rain[1]" height="39" x="41" y="79" fill="#147CFF"></rect>
+      <rect transform="rotate(-90, 81, 79)" :width="rain[2]" height="39" x="81" y="79" fill="#147CFF"></rect>
+      <rect transform="rotate(-90, 121, 79)" :width="rain[3]" height="39" x="121" y="79" fill="#147CFF"></rect>
+      <rect transform="rotate(-90, 161, 79)" :width="rain[4]" height="39" x="161" y="79" fill="#147CFF"></rect>
+      <rect transform="rotate(-90, 201, 79)" :width="rain[5]" height="39" x="201" y="79" fill="#147CFF"></rect>
 
       <!-- Grid -->
 
@@ -103,14 +113,14 @@ onMounted(async () => {
 
   <!-- Probability -->
 
-  <div class="probability">
+  <!-- <div class="probability">
     <div>{{ probability[0] }}%</div>
     <div>{{ probability[1] }}%</div>
     <div>{{ probability[2] }}%</div>
     <div>{{ probability[3] }}%</div>
     <div>{{ probability[4] }}%</div>
     <div>{{ probability[5] }}%</div>
-  </div>
+  </div> -->
 
 </template>
 
