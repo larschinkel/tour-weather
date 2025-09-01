@@ -11,13 +11,13 @@ const rain = ref([0, 0, 0, 0, 0, 0])
 const points = ref([[20, 80], [60, 80], [100, 80], [140, 80], [180, 80], [220, 80]])
 const color = (code) => {
   let color = '#ffffff'
-  if ([0,1].includes(code)) color = '#63A8FF'
-  if ([2,3].includes(code)) color = '#ADD0FC'
-  if ([45,48,51,56,61,80].includes(code)) color = '#D9E8FA'
-  if ([53,57,63,66,71,73,81,85].includes(code)) color = '#E4E4E4'
-  if ([55,65,67,75,77,86].includes(code)) color = '#C4C4C4'
-  if ([95].includes(code)) color = '#DCAFAF'
-  if ([96,99].includes(code)) color = '#DA6F6F'
+  if ([0,1].includes(code)) color = '#63a8ff'
+  if ([2,3].includes(code)) color = '#add0fc'
+  if ([45,48,51,56,61,80].includes(code)) color = '#d9e8fa'
+  if ([53,57,63,66,71,73,81,85].includes(code)) color = '#e4e4e4'
+  if ([55,65,67,75,77,86].includes(code)) color = '#c4c4c4'
+  if ([95].includes(code)) color = '#dcafaf'
+  if ([96,99].includes(code)) color = '#da6f6f'
   return color
 }
 const getDate = (departure) => {
@@ -79,12 +79,12 @@ onMounted(async () => {
 
       <!-- Rain -->
 
-      <rect transform="rotate(-90, 1, 79)" :width="rain[0]" height="39" x="1" y="79" fill="#147CFF"></rect>
-      <rect transform="rotate(-90, 41, 79)" :width="rain[1]" height="39" x="41" y="79" fill="#147CFF"></rect>
-      <rect transform="rotate(-90, 81, 79)" :width="rain[2]" height="39" x="81" y="79" fill="#147CFF"></rect>
-      <rect transform="rotate(-90, 121, 79)" :width="rain[3]" height="39" x="121" y="79" fill="#147CFF"></rect>
-      <rect transform="rotate(-90, 161, 79)" :width="rain[4]" height="39" x="161" y="79" fill="#147CFF"></rect>
-      <rect transform="rotate(-90, 201, 79)" :width="rain[5]" height="39" x="201" y="79" fill="#147CFF"></rect>
+      <rect transform="rotate(-90, 1, 79)" :width="rain[0]" height="39" x="1" y="79" fill="#9a9a9a"></rect>
+      <rect transform="rotate(-90, 41, 79)" :width="rain[1]" height="39" x="41" y="79" fill="#9a9a9a"></rect>
+      <rect transform="rotate(-90, 81, 79)" :width="rain[2]" height="39" x="81" y="79" fill="#9a9a9a"></rect>
+      <rect transform="rotate(-90, 121, 79)" :width="rain[3]" height="39" x="121" y="79" fill="#9a9a9a"></rect>
+      <rect transform="rotate(-90, 161, 79)" :width="rain[4]" height="39" x="161" y="79" fill="#9a9a9a"></rect>
+      <rect transform="rotate(-90, 201, 79)" :width="rain[5]" height="39" x="201" y="79" fill="#9a9a9a"></rect>
 
       <!-- Grid -->
 
