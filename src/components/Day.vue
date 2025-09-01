@@ -4,10 +4,10 @@ import axios from 'axios'
 const props = defineProps(['start', 'day'])
 const latitudes = props.day.map(wp => wp.latitude)
 const longitudes = props.day.map(wp => wp.longitude)
+const elevations = props.day.map(wp => wp.elevation)
 const weather = ref([])
 const hours = ([8, 10, 12, 14, 16, 18])
 const rain = ref([0, 0, 0, 0, 0, 0])
-// const probability = ref([0, 0, 0, 0, 0, 0])
 const points = ref([[20, 80], [60, 80], [100, 80], [140, 80], [180, 80], [220, 80]])
 const color = (code) => {
   let color = '#ffffff'
@@ -42,7 +42,8 @@ onMounted(async () => {
     params: {
       latitude: getCoordinates(latitudes).join(','),
       longitude: getCoordinates(longitudes).join(','),
-      hourly: 'temperature_2m,rain,precipitation,precipitation_probability,weather_code',
+      elevation: elevations.join(','),
+      hourly: 'temperature_2m,rain,weather_code',
       timezone: 'Europe/Berlin',
       start_date: props.start,
       end_date: props.start
@@ -51,7 +52,6 @@ onMounted(async () => {
   weather.value = response.data
   for (let i in weather.value) {
     rain.value[i] = weather.value[i]['hourly']['rain'][hours[i]] ? (weather.value[i]['hourly']['rain'][hours[i]] * 10) : 0
-    // probability.value[i] = weather.value[i]['hourly']['precipitation_probability'][hours[i]] ? weather.value[i]['hourly']['precipitation_probability'][hours[i]] : 0
     points.value[i][1] = 80 - (weather.value[i]['hourly']['temperature_2m'][hours[i]] * 2)
   }
 })
@@ -110,17 +110,6 @@ onMounted(async () => {
     </svg>
 
   </div>
-
-  <!-- Probability -->
-
-  <!-- <div class="probability">
-    <div>{{ probability[0] }}%</div>
-    <div>{{ probability[1] }}%</div>
-    <div>{{ probability[2] }}%</div>
-    <div>{{ probability[3] }}%</div>
-    <div>{{ probability[4] }}%</div>
-    <div>{{ probability[5] }}%</div>
-  </div> -->
 
 </template>
 
